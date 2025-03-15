@@ -9,76 +9,71 @@
 
 <body>
 <div class="content">
-  <h1><strong>DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation</strong></h1>
-  <p id="authors"><span><a href="https://natanielruiz.github.io/"></a></span><a href="https://natanielruiz.github.io/">Nataniel Ruiz</a	> <a href="http://people.csail.mit.edu/yzli/">Yuanzhen Li</a> <a href="https://varunjampani.github.io/">Varun Jampani</a> <a href="https://research.google/people/106214/">Yael Pritch</a> <a href="http://people.csail.mit.edu/mrub/">Michael Rubinstein</a> <a href="https://kfiraberman.github.io/">Kfir Aberman</a><br>
+  <h1><strong>MagicColor: Multi-instance Sketch Colorization</strong></h1>
+  <p id="authors"><a>Yinhan Zhang</a> <a>Yue Ma</a> <a>Bingyuan Wang</a> <br>
     <br>
-  <span style="font-size: 24px">Google Research
+  <span style="font-size: 24px">HKUST(GZ) HKUST
   </span></p>
   <br>
-  <img src="./DreamBooth_files/teaser_static.jpg" class="teaser-gif" style="width:100%;"><br>
-  <h3 style="text-align:center"><em>It’s like a photo booth, but once the subject is captured, it can be synthesized wherever your dreams take you…</em></h3>
+  <img src="./DreamBooth_files/teaser.jpg" class="teaser-gif" style="width:100%;"><br>
+  <h3 style="text-align:center"><em>Given a set of references and corresponding line art image, our approach enables coloring sketch
+    while maintaining consistency across multiple objects. Compared to traditional methods, our approach significantly improves coloring
+    efficiency</em></h3>
     <font size="+2">
           <p style="text-align: center;">
             <a href="https://arxiv.org/abs/2208.12242" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
-	    (<font color="#C70039">new!</font>) <a href="https://github.com/google/dreambooth" target="_blank">[Dataset]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	    (<font color="#C70039">new!</font>) <a href="https://github.com/YinHan-Zhang/MagicColor" target="_blank">[Github]</a> &nbsp;&nbsp;&nbsp;&nbsp;
             <a href="DreamBooth_files/bibtex.txt" target="_blank">[BibTeX]</a>
           </p>
     </font>
 </div>
 <div class="content">
   <h2 style="text-align:center;">Abstract</h2>
-  <p>Large text-to-image models achieved a remarkable leap in the evolution of AI, enabling high-quality and diverse synthesis of images from a given text prompt. However, these models lack the ability to mimic the appearance of subjects in a given reference set and synthesize novel renditions of them in different contexts. In this work, we present a new approach for "personalization" of text-to-image diffusion models (specializing them to users' needs). Given as input just a few images of a subject, we fine-tune a pretrained text-to-image model (Imagen, although our method is not limited to a specific model) such that it learns to bind a unique identifier with that specific subject. Once the subject is embedded in the output domain of the model, the unique identifier can then be used to synthesize fully-novel photorealistic images of the subject contextualized in different scenes. By leveraging the semantic prior embedded in the model with a new autogenous class-specific prior preservation loss, our technique enables synthesizing the subject in diverse scenes, poses, views, and lighting conditions that do not appear in the reference images. We apply our technique to several previously-unassailable tasks, including subject recontextualization, text-guided view synthesis, appearance modification, and artistic rendering (all while preserving the subject's key features).</p>
+  <p>We present MagicColor, a diffusion-based framework for multi-instance sketch colorization. The production of multi-instance 2D line art colorization adheres to an industry-standard workflow consisting of three crucial stages: the design of line art characters, the coloring of individual objects, and the refinement process.  The artists must repeat the process to color each instance one by one, which is inaccurate and inefficient. Meanwhile, current generative methods fail to solve this task due to the challenge of multi-instance pair data collection.
+    To tackle these challenges, we incorporate three technical designs to ensure precise character detail transcription and achieve multi-instance sketch colorization in a single forward.
+    Specifically, we first propose the self-play training strategy to solve the lack of training data. Then the instance guider is introduced to feed the color of the instance. To achieve accurate color matching, we present the fine-grained color matching with edge loss to enhance visual quality. Equipped with the proposed module, MagicColor enables automatically transforming sketch into vividly-colored image in accurate consistency with multi-instance images.
+    Experiments on a self-collected benchmark demonstrate the superiority of our model over current solutions in terms of precise colorization. Our model could even automate the colorization process, such that users can easily create a color consistent image by simply providing reference instances as well as the original sketch.</p>
 </div>
 <div class="content">
   <h2>Background</h2>
-  <p> Given a particular subject such as clock (shown in the real images on the left), it is very challenging to generate it in different contexts with state-of-the-art text-to-image models, while maintaining high fidelity to its key visual features. Even with dozens of iterations over a text prompt that contains a detailed description of the appearance of the clock (<em>"retro style yellow alarm clock with a white clock face and a yellow number three on the right part of the clock face in the jungle"</em>), the Imagen model [Saharia et al., 2022] can't reconstruct its key visual features (third column). Furthermore, even models whose text embedding lies in a shared language-vision space and can create semantic variations of the image, such as DALL-E2 [Ramesh et al., 2022], can neither reconstruct the appearance of the given subject nor modify the context (second column). In contrast, our approach (right) can synthesize the clock with high fidelity and in new contexts (<em>"a [V] clock in the jungle"</em>).</p>
+  <p> In the traditional process of coloring cartoon sketches, artists first analyze the line art to grasp the character and story context, then choose suitable color palettes and manually apply colors layer by layer with attention to details. However, traditional methods have two drawbacks. The first one is that they are time-consuming as manual coloring requires great effort to match the original design, for instance, in an animation series, multiple identical objects in the same image need to be colored one by one, which is very inefficient. The other is inaccuracy since manual work is error-prone and different artists may have varied color interpretations, causing inconsistent results in large-scale projects. Our work aligns seamlessly with this pipeline, seeking to automate coloring while preserving design fidelity and instance-level color consistency. n contrast, our method has the capability of coloring sketches while maintaining consistency, making multi-instance sketch colorization easier </p>
   <br>
-  <img class="summary-img" src="./DreamBooth_files/background.png" style="width:100%;"> <br>
+  <img class="summary-img" src="./DreamBooth_files/intro.jpg" style="width:100%;"> <br>
 </div>
 <div class="content">
   <h2>Approach</h2>
-  <p> Our method takes as input a few images (typically 3-5 images suffice, based on our experiments) of a subject (e.g., a specific dog) and the corresponding class name (e.g. "dog"), and returns a fine-tuned/"personalized'' text-to-image model that encodes a unique identifier that refers to the subject. Then, at inference, we can implant the unique identifier in different sentences to synthesize the subjects in difference contexts.</p>
+  <p>Our approach leverages the priors from pretrained diffusion-based image generation models, harnessing their ability to capture visual coherence. The key designs of our approach are as follows. First, to tackle the misalignment between the reference character design and the input line art, we incorporate an explicit correspondence mechanism that integrates color and style information from the references into the line art. In addition, we employ implicit latent control to ensure precise management of each instance, significantly enhancing color accuracy and consistency. Second, to further improve color consistency and the visual quality of the output, we introduce edge loss and color matching. These methods compel the model to genuinely extract color information from the reference character design, thereby improving the accuracy of semantic correspondence and reducing the reliance on any color information that may inadvertently leak from the reference image. Third, our model adopts a two-stage, self-play training strategy, which addresses the challenges about limited multi-instance training data, and subsequently incorporates additional reference images to refine the colorization capability. By facilitating colorization across multiple instances, our model achieves impressive color consistency with minimal human intervention. </p>
   <br>
-  <img class="summary-img" src="./DreamBooth_files/high_level.png" style="width:100%;"> <br>
-  <p>Given ~3-5 images of a subject we fine tune a text-to-image diffusion in two steps: (a) fine tuning the low-resolution text-to-image model with the input images paired with a text prompt containing a unique identifier and the name of the class the subject belongs to (e.g., "A photo of a [T] dog”), in parallel, we apply a class-specific prior preservation loss, which leverages the semantic prior that the model has on the class and encourages it to generate diverse instances belong to the subject's class by injecting the class name in the text prompt (e.g., "A photo of a dog”). (b) fine-tuning the super resolution components with pairs of low-resolution and high-resolution images taken from our input images set, which enables us to maintain high-fidelity to small details of the subject.</p>
+  <img class="summary-img" src="./DreamBooth_files/Pipeline.jpg" style="width:100%;"> <br>
+  <p>We combine dual-Unet framework with instance control module (ICM). During training,
+    we use multiple instances to set the overall color accurately. The color matching enables the model to better align the colors of the target
+    image with those of the reference instances precisely. The edge loss helps the model pay more attention to the high-frequency areas and
+    edges, resulting in a more accurate and vivid colorization for each instance.</p>
   <br>
-  <img class="summary-img" src="./DreamBooth_files/system.png" style="width:100%;"> <br>
+  <img class="summary-img" src="./DreamBooth_files/inference.jpg" style="width:100%;"> <br>
 </div>
 <div class="content">
-  <h2>Results</h2>
-  <p>Results for re-contextualization of a bag and vase subject instances. By finetuning a model using our method we are able to generate different images of the a subject instance in different environments, with high preservation of subject details and realistic interaction between the scene and the subject. We display the conditioning prompts below each image. </p>
-<img class="summary-img" src="./DreamBooth_files/results.png" style="width:100%;">
+  <h2>Galary</h2>
+  <p>Flexible usage: (1) When applying different reference images to the same sketch sequence, our method retains the character's identity. It adjusts details like lighting and background based on the reference styles. (2) For cartoon wallpapers or posters with multiple characters or objects, our approach uses multiple reference images to perform semantic-based colorization, ensuring each line art element gets colorized semantically.</p>
+<img class="summary-img" src="./DreamBooth_files/galary.png" style="width:100%;">
 </div>
 <div class="content">
-  <h2>Art Rendition</h2>
-  <p>Original artistic renditions of our subject dog in the style of famous painters. We remark that many of the generated poses were not seen in the training set, such as the Van Gogh and Warhol rendition. We also note that some renditions seem to have novel composition and faithfully imitate the style of the painter - even suggesting some sort of creativity (extrapolation given previous knowledge).</p>
+  <h2>User Experience </h2>
+  <p>User interface: Upload a sketch and multiple reference images (such as a cap, T-shirt, and jeans here), then click "Generate Result" to get a vividly colored character illustration. \n User Study Results: Quality: Visual fidelity of generated outputs, Similarity: Alignment with reference instances, Usability: Operational simplicity, Controllability: Consistency between references and result outputs</p>
   <br>
-  <img class="summary-img" src="./DreamBooth_files/art.png" style="width:100%;"> <br>
+  <img class="summary-img" src="./DreamBooth_files/user_study.jpg" style="width:100%;"> <br>
+  <img class="summary-img" src="./DreamBooth_files/UI.jpg" style="width:100%;"> <br>
 </div>
-<div class="content">
-  <h2>Text-Guided View Synthesis</h2>
-  <p>Our technique can synthesized images with specified viewpoints for a subject cat (left to right: top, bottom, side and back views). Note that the generated poses are  different from the input poses, and the background changes in a realistic manner given a pose change. We also highlight the preservation of complex fur patterns on the subject cat's forehead.</p>
-  <br>
-  <img class="summary-img" src="./DreamBooth_files/novel_views.png" style="width:100%;"> <br>
-</div>
-<div class="content">
-  <h2>Property Modification</h2>
-  <p>We show color modifications in the first row (using prompts ``a [color] [V] car''), and crosses between a specific dog and different animals in the second row (using prompts ``a cross of a [V] dog and a [target species]''). We highlight the fact that our method preserves unique visual features that give the subject its identity or essence, while performing the required property modification.</p>
-  <br>
-  <img class="summary-img" src="./DreamBooth_files/property_modification.png" style="width:100%;"> <br>
-</div>
-<div class="content">
-  <h2>Accessorization</h2>
-  <p>Outfitting a dog with accessories. The identity of the subject is preserved and many different outfits or accessories can be applied to the dog given a prompt of type <em>"a [V] dog wearing a police/chef/witch outfit''</em>. We observe a realistic interaction between the subject dog and the outfits or accessories, as well as a large variety of possible options.</p>
-  <br>
-  <img class="summary-img" src="./DreamBooth_files/accessories.png" style="width:100%;"> <br>
-</div>
+
 <div class="content">
   <h2>Societal Impact</h2>
-  <p>This project aims to provide users with an effective tool for synthesizing personal subjects (animals, objects) in different contexts. While general text-to-image models might be biased towards specific attributes when synthesizing images from text, our approach enables the user to get a better reconstruction of their desirable subjects. On contrary, malicious parties might try to use such images to mislead viewers. This is a common issue, existing in other generative models approaches or content manipulation techniques. Future research in generative modeling, and specifically of personalized generative priors, must continue investigating and revalidating these concerns.</p>
+  <p>This project aims to provide users with an effective tool for colorizing personal subjects (anime, animals, objects) in different contexts.
+    While general text-to-image models might be biased towards specific attributes when colorizing images from multi-instance, our approach enables the user to get a better reconstruction of their desirable subjects. 
+    On contrary, malicious parties might try to use such images to mislead viewers. This is a common issue, existing in other generative models approaches or content manipulation techniques.
+    Future research in generative modeling, and specifically of personalized generative priors, must continue investigating and revalidating these concerns.</p>
   <br>
 </div>
-<div class="content">
+<!-- <div class="content">
   <h2>BibTex</h2>
   <code> @article{ruiz2022dreambooth,<br>
   &nbsp;&nbsp;title={DreamBooth: Fine Tuning Text-to-image Diffusion Models for Subject-Driven Generation},<br>
@@ -86,10 +81,10 @@
   &nbsp;&nbsp;booktitle={arXiv preprint arxiv:2208.12242},<br>
   &nbsp;&nbsp;year={2022}<br>
   } </code> 
-</div>
+</div> -->
 <div class="content" id="acknowledgements">
   <p><strong>Acknowledgements</strong>:
-    We thank Rinon Gal, Adi Zicher, Ron Mokady, Bill Freeman, Dilip Krishnan, Huiwen Chang and Daniel Cohen-Or for their valuable inputs that helped improve this work, and to Mohammad Norouzi, Chitwan Saharia and William Chan for providing us with their support and the pretrained models of Imagen. Finally, a special thank you to David Salesin for his feedback, advice and for his support for the project.
+    We thank for yue and bingyuan their valuable inputs that helped improve this work, and thanks qifeng and zeyu for his feedback, advice and for his support for the project.
     <!-- Recycling a familiar <a href="https://chail.github.io/latent-composition/">template</a> ;). --> 
   </p>
 </div>
