@@ -10,15 +10,15 @@
 <body>
 <div class="content">
   <h1><strong>MagicColor: Multi-instance Sketch Colorization</strong></h1>
-  <p id="authors"><a>Yinhan Zhang</a> <a>Yue Ma</a> <a>Bingyuan Wang</a> <br>
+  <p id="authors"><a>Yinhan Zhang</a> <a>Yue Ma</a> <a>Bingyuan Wang</a> <a>Qifeng Chen</a> <a>Zeyu Wang</a> <br>
     <br>
-  <span style="font-size: 24px">HKUST(GZ) HKUST
+  <span style="font-size: 24px">HKUST(GZ) &nbsp; &nbsp; HKUST
   </span></p>
   <br>
   <img src="./DreamBooth_files/teaser.jpg" class="teaser-gif" style="width:100%;"><br>
   <h3 style="text-align:center"><em>Given a set of references and corresponding line art image, our approach enables coloring sketch
     while maintaining consistency across multiple objects. Compared to traditional methods, our approach significantly improves coloring
-    efficiency</em></h3>
+    efficiency. </em></h3>
     <font size="+2">
           <p style="text-align: center;">
             <a href="https://arxiv.org/abs/2208.12242" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -45,15 +45,14 @@
   <p>Our approach leverages the priors from pretrained diffusion-based image generation models, harnessing their ability to capture visual coherence. The key designs of our approach are as follows. First, to tackle the misalignment between the reference character design and the input line art, we incorporate an explicit correspondence mechanism that integrates color and style information from the references into the line art. In addition, we employ implicit latent control to ensure precise management of each instance, significantly enhancing color accuracy and consistency. Second, to further improve color consistency and the visual quality of the output, we introduce edge loss and color matching. These methods compel the model to genuinely extract color information from the reference character design, thereby improving the accuracy of semantic correspondence and reducing the reliance on any color information that may inadvertently leak from the reference image. Third, our model adopts a two-stage, self-play training strategy, which addresses the challenges about limited multi-instance training data, and subsequently incorporates additional reference images to refine the colorization capability. By facilitating colorization across multiple instances, our model achieves impressive color consistency with minimal human intervention. </p>
   <br>
   <img class="summary-img" src="./DreamBooth_files/Pipeline.jpg" style="width:100%;"> <br>
-  <p>We combine dual-Unet framework with instance control module (ICM). During training,
-    we use multiple instances to set the overall color accurately. The color matching enables the model to better align the colors of the target
+  <p>We combine dual-Unet framework with instance control module (ICM). During training, we use multiple instances to set the overall color accurately. The color matching enables the model to better align the colors of the target
     image with those of the reference instances precisely. The edge loss helps the model pay more attention to the high-frequency areas and
     edges, resulting in a more accurate and vivid colorization for each instance.</p>
   <br>
   <img class="summary-img" src="./DreamBooth_files/inference.jpg" style="width:100%;"> <br>
 </div>
 <div class="content">
-  <h2>Galary</h2>
+  <h2>Gallery</h2>
   <p>Flexible usage: (1) When applying different reference images to the same sketch sequence, our method retains the character's identity. It adjusts details like lighting and background based on the reference styles. (2) For cartoon wallpapers or posters with multiple characters or objects, our approach uses multiple reference images to perform semantic-based colorization, ensuring each line art element gets colorized semantically.</p>
 <img class="summary-img" src="./DreamBooth_files/galary.png" style="width:100%;">
 </div>
@@ -61,8 +60,8 @@
   <h2>User Experience </h2>
   <p>User interface: Upload a sketch and multiple reference images (such as a cap, T-shirt, and jeans here), then click "Generate Result" to get a vividly colored character illustration. \n User Study Results: Quality: Visual fidelity of generated outputs, Similarity: Alignment with reference instances, Usability: Operational simplicity, Controllability: Consistency between references and result outputs</p>
   <br>
-  <img class="summary-img" src="./DreamBooth_files/user_study.jpg" style="width:100%;"> <br>
   <img class="summary-img" src="./DreamBooth_files/UI.jpg" style="width:100%;"> <br>
+  <img class="summary-img" src="./DreamBooth_files/user_study.jpg" style="width:100%;"> <br>
 </div>
 
 <div class="content">
