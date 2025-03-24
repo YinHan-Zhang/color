@@ -9,7 +9,7 @@
 
 <body>
 <div class="content">
-  <h1><strong>MagicColor: Multi-instance Sketch Colorization</strong></h1>
+  <h1><strong>MagicColor: Multi-Instance Sketch Colorization</strong></h1>
   <p id="authors"><a>Yinhan Zhang</a> <a>Yue Ma</a> <a>Bingyuan Wang</a> <a>Qifeng Chen</a> <a>Zeyu Wang</a> <br>
     <br>
   <span style="font-size: 24px">HKUST(GZ) &nbsp; &nbsp; HKUST
@@ -21,10 +21,10 @@
     efficiency. </em></h3>
     <font size="+2">
           <p style="text-align: center;">
-            <!-- <a href="https://arxiv.org/abs/2208.12242" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp; -->
+            <a href="https://arxiv.org/abs/2503.16948" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
             <a target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
 	    (<font color="#C70039">new!</font>) <a href="https://github.com/YinHan-Zhang/MagicColor" target="_blank">[Github]</a> &nbsp;&nbsp;&nbsp;&nbsp;
-            <!-- <a href="DreamBooth_files/bibtex.txt" target="_blank">[BibTeX]</a> -->
+            <a href="DreamBooth_files/bibtex.txt" target="_blank">[BibTeX]</a>
             <a target="_blank">[BibTeX]</a>
           </p>
     </font>
@@ -55,17 +55,19 @@
 </div>
 <div class="content">
   <h2>Gallery</h2>
-  <p>(1) Flexible usage: When stylizing the same sketch with diverse reference images, our method retains the character's identity. It adjusts details like lighting and background based on the reference styles.</p>
-  <p>(2) Semantic awareness: For cartoon wallpapers or posters with multiple characters or objects, our approach uses multiple reference images to perform semantic-based colorization, ensuring each line art element gets colorized semantically. </p>
-  <p>(3) Multi-object and occlusions: Single-subject line art can efficiently convert a sketch into a vivid, full-colored illustration, speeding up the production and enabling animators to test different color concepts quickly. However, in sketch images with many main objects or significant occlusions between them, the detailed inter-object colors may not be well maintained.</p>
+
+  <p><strong>(1) Flexible usage:</strong> When stylizing the same sketch with diverse reference instances, our method retains the character's identity. It adjusts details like lighting and background based on the reference styles.</p>
+  <p><strong>(2) Semantic awareness:</strong> For cartoon wallpapers or posters with multiple characters or objects, our approach uses multiple reference images to perform semantic-based colorization, ensuring each line art element gets colorized semantically. </p>
+  <p><strong>(3) Multi-object and occlusions:</strong> Single-subject line art can efficiently convert a sketch into a vivid, full-colored illustration, speeding up the production and enabling animators to test different color concepts quickly. However, in sketch images with many main objects or significant occlusions between them, the detailed inter-object colors may not be well maintained.</p>
 <img class="summary-img" src="./DreamBooth_files/galary.png" style="width:100%;">
-  <p>Instance Control Ability of the Model:</p>
+  <p><strong>Control Ability of the Model:</strong></p>
   <p>Given the same line art as input and distinct reference instances, our model achieves precise instance-level control to produce varied colorization outcomes. Notably, although the training data is derived from anime datasets, the references can incorporate real-life images, highlighting the model’s adaptability across different domains and flexible utilization of diverse reference sources.</p>
 <img class="summary-img" src="./DreamBooth_files/control.jpg" style="width:100%;">
 </div>
 <div class="content">
   <h2>User Experience </h2>
-  <p>User interface: Upload a sketch and multiple reference instances (such as a cap, T-shirt, and jeans here), then click "Generate Result" to get a vividly colored character illustration. \n User Study Results: Quality: Visual fidelity of generated outputs, Similarity: Alignment with reference instances, Usability: Operational simplicity, Controllability: Consistency between references and result outputs</p>
+  <p><strong>User Interface: </strong></p>
+  <p>Upload a sketch and multiple reference instances (such as a cap, T-shirt, and jeans here), then click "Generate Result" to get a vividly colored character illustration. \n User Study Results: Quality: Visual fidelity of generated outputs, Similarity: Alignment with reference instances, Usability: Operational simplicity, Controllability: Consistency between references and result outputs</p>
   <br>
   <img class="summary-img" src="./DreamBooth_files/UI.jpg" style="width:100%;"> <br>
   <img class="summary-img" src="./DreamBooth_files/user_study.jpg" style="width:100%;"> <br>
@@ -79,19 +81,19 @@
     Future research in generative modeling, and specifically of personalized generative priors, must continue investigating and revalidating these concerns.</p>
   <br>
 </div>
-<!-- <div class="content">
+<div class="content">
   <h2>BibTex</h2>
-  <code> @article{ruiz2022dreambooth,<br>
-  &nbsp;&nbsp;title={DreamBooth: Fine Tuning Text-to-image Diffusion Models for Subject-Driven Generation},<br>
-  &nbsp;&nbsp;author={Ruiz, Nataniel and Li, Yuanzhen and Jampani, Varun and Pritch, Yael and Rubinstein, Michael and Aberman, Kfir},<br>
-  &nbsp;&nbsp;booktitle={arXiv preprint arxiv:2208.12242},<br>
-  &nbsp;&nbsp;year={2022}<br>
+  <code> @article{zhang2025magiccolormultiinstancesketchcolorization},<br>
+  &nbsp;&nbsp;title={MagicColor: Multi-Instance Sketch Colorization},<br>
+  &nbsp;&nbsp;author={Yinhan Zhang and Yue Ma and Bingyuan Wang and Qifeng Chen and Zeyu Wang,<br>
+  &nbsp;&nbsp;booktitle={https://arxiv.org/abs/2503.16948},<br>
+  &nbsp;&nbsp;year={2025}<br>
   } </code> 
-</div> -->
+</div>
 <div class="content" id="acknowledgements">
   <p><strong>Acknowledgements</strong>:
     We thank for yue and bingyuan their valuable inputs that helped improve this work, and thanks qifeng and zeyu for his feedback, advice and for his support for the project.
-    <!-- Recycling a familiar <a href="https://chail.github.io/latent-composition/">template</a> ;). --> 
+    Recycling a familiar <a href="https://chail.github.io/latent-composition/">template</a> ;). 
   </p>
 </div>
 </body>

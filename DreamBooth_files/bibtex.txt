@@ -1,6 +1,9 @@
-@article{ruiz2022dreambooth,
-  title={DreamBooth: Fine Tuning Text-to-image Diffusion Models for Subject-Driven Generation},
-  author={Ruiz, Nataniel and Li, Yuanzhen and Jampani, Varun and Pritch, Yael and Rubinstein, Michael and Aberman, Kfir},
-  booktitle={arXiv preprint arxiv:2208.12242},
-  year={2022}
+@misc{zhang2025magiccolormultiinstancesketchcolorization,
+      title={MagicColor: Multi-Instance Sketch Colorization}, 
+      author={Yinhan Zhang and Yue Ma and Bingyuan Wang and Qifeng Chen and Zeyu Wang},
+      year={2025},
+      eprint={2503.16948},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2503.16948}, 
 }
